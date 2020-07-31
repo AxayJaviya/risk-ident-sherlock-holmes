@@ -9,7 +9,7 @@ Basic Express and TypeScript API endpoint for detection of transaction fraudulen
 ## Description
 
 - This API is built using [Express.js](https://www.npmjs.com/package/express) web framework, and have used [Typescript](https://www.npmjs.com/package/typescript) for writing the api's logic.
-- For storing configuration into the `env` for production and `.env.development` for development, [DOTENV](https://www.npmjs.com/package/dotenv) for Node.js is used.
+- For storing configuration into the `env` for production and `.env.development` for development, [DOTENV](https://www.npmjs.com/package/dotenv) for Node.js is used. For demonstration purpose .env.example file is added to this repository
 - For API metadata logging, uses a [morgan](https://www.npmjs.com/package/morgan), if Node running environment is production then store metadata into access.log file else display metadata in console.
 - Uses [mocha](https://www.npmjs.com/package/mocha) and [chai](https://www.npmjs.com/package/chai) to write API endpoint unit test cases.
 
@@ -20,6 +20,8 @@ Basic Express and TypeScript API endpoint for detection of transaction fraudulen
 - [Install, Configure & Run](#install-configure--run)
 - [List of Routes](#list-of-routes)
 - [Screenshots](#screenshots)
+- [Author](#author)
+- [License](#license)
 
 ## Prerequisites
 
@@ -28,7 +30,6 @@ Basic Express and TypeScript API endpoint for detection of transaction fraudulen
 ## App Structure
 
 ```bash
-├── dist
 ├── doc
 ├── src
 │   ├── controllers
@@ -44,6 +45,7 @@ Basic Express and TypeScript API endpoint for detection of transaction fraudulen
 │   └── index.ts
 ├── .env (.gitignore)
 ├── .env.development (.gitignore)
+├── .env.example
 ├── .gitignore
 ├── access.log
 ├── package.json
@@ -77,10 +79,8 @@ vim .env.developemt;
 # Run the development app
 npm run dev;
 
-# Build the app
+# Build and Run the app
 num run build;
-
-# Run the production app
 npm run start;
 
 # Run the test cases
@@ -96,7 +96,7 @@ npm run test;
 +--------+-------------------------+
   Method | URI
 +--------+-------------------------+
-  GET    | /api/transactions
+  GET    | /api/transactions?transactionId&confidenceLevel
 +--------+-------------------------+
 ```
 
@@ -106,30 +106,30 @@ npm run test;
 
 ![Unit Test results](/docs/test-cases-result.png)
 
-### /api/transactions with no transactionId in queryparams
+### Home Screen
 
-![Run API from browser](/docs/api-no-transactionId.png)
+![Home Screen](/docs/home_screen.png)
 
-### /api/transactions with no confidenceLevel in queryparams
+### Transaction API Screen
 
-![Run API from browser](/docs/api-no-confidenceLevel.png)
+![Transaction API Screen](/docs/transaction_screen.png)
 
-### /api/transactions with multiple transactionId in queryparams
+### No Transaction Found
 
-![Run API from browser](/docs/api-multiple-transactionId.png)
+![Transaction Found](/docs/api-no-transactionId.png)
 
-### /api/transactions with multiple confidenceLevel in queryparams
+### Single Transaction Found
 
-![Run API from browser](/docs/api-multiple-confidenceLevel.png)
+![Single Transaction Found](/docs/api-match-transaction-found.png)
 
-### /api/transactions with no matched transaction response
+### Mutiple Transaction Found
 
-![Run API from browser](/docs/api-no-match-transaction-found.png)
-
-### /api/transactions with matched transaction response
-
-![Run API from browser](/docs/api-match-transaction-found.png)
+![Mutiple Transaction Found](/docs/api-match-multiple-transaction-found.png)
 
 ## Author
 
-- **Axay Javiya** - [javiyaaxay@gmail.com](mailto:javiyaaxay@gmail.com)
+**Axay Javiya** - [javiyaaxay@gmail.com](mailto:javiyaaxay@gmail.com)
+
+## License
+
+[ISC](https://opensource.org/licenses/ISC)

@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { Controller } from './Controller';
-const transactionFilePath = path.join(__dirname, '../../test-data_072020.json');
-console.log('transaction file path: ', transactionFilePath);
+const transactionFilePath = path.join(__dirname, `../../${process.env.TRANSACTION_FILE as string}`);
 
 
 /**
@@ -54,12 +53,14 @@ export class TransactionController implements Controller {
    */
   getData = (request: Request, response: Response): Response => {
     const transactionId = request.query.transactionId;
-    const confidenceLevel = request.query.confidenceLevel;
+    const confLevel = request.query.confidenceLevel;
     try {
       if (!transactionId) throw new Error('transactionId is required query parameter');
-      if (!confidenceLevel) throw new Error('confidenceLevel is required query parameter');
+      if (!confLevel) throw new Error('confidenceLevel is required query parameter');
       if (Array.isArray(transactionId)) throw new Error('Multiple transactionId are found in query parameters');
-      if (Array.isArray(confidenceLevel)) throw new Error('Multiple confidenceLevel are found in query parameters');
+      if (Array.isArray(confLevel)) throw new Error('Multiple confidenceLevel are found in query parameters');
+      const confidenceLevel = parseFloat(confLevel as string);
+      if (isNaN(confidenceLevel)) throw new Error('confidenceLevel must be a number');
 
       let tnxData = fs.readFileSync(transactionFilePath, 'utf8');
       tnxData = JSON.parse(tnxData.toString());
@@ -112,7 +113,6 @@ export class TransactionController implements Controller {
       data = data.filter((i) => i.id === transactionId || i.connectionInfo && i.connectionInfo.confidence >= confidenceLevel);
       return response.status(200).json(data);
     } catch (error) {
-      console.error(`/api/transaction?transactionId=${transactionId}&confidenceLevel=${confidenceLevel} Error: ${error.message}`);
       return response.status(400).json({
         status: 'error',
         message: error.message

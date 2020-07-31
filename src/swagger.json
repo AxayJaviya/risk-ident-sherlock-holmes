@@ -1,0 +1,50 @@
+{
+  "swagger": "2.0.0",
+  "info": {
+    "title": "RISK IDENT",
+    "description": "RISK IDENT Transaction API endpoints",
+    "version": "1.0"
+  },
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Transaction",
+      "description": "API endpoint for detection of transaction fraudulent"
+    }
+  ],
+  "basePath": "/api",
+  "paths": {
+    "/transactions": {
+      "get": {
+        "tags": [
+          "transactions"
+        ],
+        "description": "Display all the transactions which are children of given transactionId and confidence >= confidenceLevel",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "confidenceLevel",
+            "in": "query",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid input"
+          },
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}

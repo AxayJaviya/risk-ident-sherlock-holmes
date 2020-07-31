@@ -1,5 +1,7 @@
 import express from 'express';
 import { Application } from 'express';
+import swaggerUi from 'swagger-ui-express';
+import * as swaggerDocument from './swagger.json';
 
 
 /**
@@ -45,7 +47,8 @@ class App {
   private routes(routes: { forEach: (arg0: (route: any) => void) => void; }) {
     routes.forEach(route => {
       this.app.use('/api', route.router);
-    })
+    });
+    this.app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
   /**
